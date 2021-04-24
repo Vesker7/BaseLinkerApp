@@ -19,7 +19,7 @@ namespace BaseLinkerApp
                 Console.WriteLine("Wybrano wypisywanie logów do pliku.");
                 Console.WriteLine("Podaj ścieżkę do pliku:");
                 string path = Console.ReadLine();
-                _logsService = new FileLogs("appLogs.txt");
+                _logsService = new FileLogs(path);
             }
             else if (choice == "0")
             {
