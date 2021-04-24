@@ -33,8 +33,13 @@ namespace BaseLinkerApp
             }
            
             BaseLinkerClient client = new("3000897-3004070-XLT2A2AZ8MDQVN1PYL2N1QVNC7W753MFLEKIHYD32CIYJDES7QH33EN88GZ0IINS", _logsService);
+            
+            if (!client.GetProduct("bl_1", "Gratis")["products"].HasValues)
+            {
+                client.AddProduct("bl_1", "83550", "Gratis", 1000, 1f, 23);
+            }
 
-            Console.WriteLine(client.AddOrderWithGift(4839622));
+            client.AddOrderWithGift(4839622);
         }
     }
 }

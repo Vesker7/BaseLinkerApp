@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Text;
 using Newtonsoft.Json.Linq;
 
@@ -149,8 +150,14 @@ namespace BaseLinkerApp
 
             order["orders"].First["admin_comments"] = "Zamówienie utworzone na podstawie " + order_id;
 
-            // TODO: DODAĆ GRATIS
+            JObject gratis = GetProduct("bl_1", "Gratis");
+            gratis["products"].First["quantity"] = 1; 
+            string str = gratis["products"].First.ToString();
 
+            JArray productList = JArray.Parse(order["orders"].First["products"].ToString());
+            productList.Add(JToken.Parse(str));
+            order["orders"].First["products"] = productList;
+            
             _logService.Print("Tworzenie zamówienia na podstawie zamówienia nr: " + order_id + ".");
             ChooseMethod("addOrder");
             client.QueryString.Set("parameters", order["orders"].First.ToString());
